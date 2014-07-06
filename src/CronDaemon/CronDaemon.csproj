@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cron.cs" />
     <Compile Include="CronDaemon.cs" />
     <Compile Include="DisposableCollection.cs" />
     <Compile Include="PriorityQueue.cs" />
