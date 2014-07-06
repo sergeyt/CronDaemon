@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Test;Deploy;Zip">
+	<!--
+	References:
+		http://msdn.microsoft.com/en-us/library/vstudio/dd393574.aspx
+		http://msdn.microsoft.com/en-us/library/vstudio/ms164313.aspx
+	-->
+	<Import Project="zipfile.targets" />
+	<Import Project="MSBuild.Community.Tasks.targets" />
+
+	<UsingTask TaskName="Microsoft.Build.Tasks.XmlPoke" AssemblyName="Microsoft.Build.Tasks.v4.0, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)\..</RootDir>
+		<SrcDir>$(RootDir)\src</SrcDir>
+		<DeployDir>$(RootDir)\.artifacts</DeployDir>
+		<ProductVersion>0.1.0.0</ProductVersion>
+		<AssemblyCopyright>Copyright Sergey Todyshev © 2014</AssemblyCopyright>
+		<Configuration>release</Configuration>
+		<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
+		<TestOutDir>$(SrcDir)\bin\ReleaseTest</TestOutDir>
+		<DeployZipFileName>CronDaemon-$(Configuration)-v$(ProductVersion).zip</DeployZipFileName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Projects Include="$(SrcDir)\CronDaemon\CronDaemon.csproj"/>
+	</ItemGroup>
+
+	<Target Name="Clean">
+		<RemoveDir Directories="$(OutDir)" />
+	</Target>
+
+	<Target Name="_ReleaseConfig">
+		<PropertyGroup>
+			<Configuration>release</Configuration>
+			<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="_NUnitConfig">
+		<PropertyGroup>
+			<Configuration>ReleaseTest</Configuration>
+			<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
+			<TestOutDir>$(OutDir)</TestOutDir>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="Build" DependsOnTargets="_ReleaseConfig">
+		<Message Text="Building configuration: $(Configuration)" />
+		<MSBuild
+			Projects="%(Projects.FullPath)"
+			Properties="Configuration=$(Configuration);Platform=AnyCPU;ApplicationVersion=$(ProductVersion);SolutionDir=$(RootDir);OutputPath=$(OutDir)"
+			Targets="Rebuild"
+		/>
+	</Target>
+
+	<Target Name="BuildTest" DependsOnTargets="_NUnitConfig">
+		<Message Text="Building configuration: $(Configuration)" />
+		<MSBuild
+			Projects="%(Projects.FullPath)"
+			Properties="Configuration=$(Configuration);Platform=AnyCPU;ApplicationVersion=$(ProductVersion);SolutionDir=$(RootDir);OutputPath=$(OutDir)"
+			Targets="Rebuild"
+		/>
+	</Target>
+
+	<Target Name="Test" DependsOnTargets="BuildTest">
+		<PropertyGroup>
+			<NUnitResultsFile>$(TestOutDir)\nunit-result.xml</NUnitResultsFile>
+			<NUnitToolPath>$(RootDir)\packages\NUnit.Runners.2.6.3\tools</NUnitToolPath>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<TestAssemblies Include="$(TestOutDir)\CronDaemon.dll"/>
+		</ItemGroup>
+
+		<CallTarget Targets="_InstallNUnitConsole" Condition="!Exists('$(NUnitToolPath)')"/>
+
+		<NUnit ToolPath="$(NUnitToolPath)"
+			   WorkingDirectory="$(TestOutDir)"
+			   DisableShadowCopy="true"
+			   OutputXmlFile="$(NUnitResultsFile)"
+			   ErrorOutputFile="$(TestOutDir)\nunit.log"
+			   Assemblies="@(TestAssemblies)"/>
+	</Target>
+
+	<Target Name="_InstallNUnitConsole">
+		<PropertyGroup>
+			<NuGetExePath>$(RootDir)\.nuget\NuGet.exe</NuGetExePath>
+			<NUnitToolPath>$(RootDir)\packages\NUnit.Runners.2.6.3\tools</NUnitToolPath>
+		</PropertyGroup>
+
+		<Exec WorkingDirectory="$(RootDir)"
+			  Command="$(NuGetExePath) install NUnit.Runners -Version 2.6.3 -OutputDirectory packages"/>
+
+		<ItemGroup>
+			<ConfigFiles Include="$(MSBuildProjectDirectory)\nunit-console.exe.config"/>
+		</ItemGroup>
+		
+		<Copy SourceFiles="@(ConfigFiles)"
+			  DestinationFolder="$(NUnitToolPath)"
+			  OverwriteReadOnlyFiles="true"/>
+	</Target>
+
+	<Target Name="Deploy" DependsOnTargets="Build">
+		<RemoveDir Directories="$(DeployDir)" />
+		<MakeDir Directories="$(DeployDir)" />
+
+		<ItemGroup>
+			<Artifacts Include="$(OutDir)\CronDaemon*.dll"/>
+			<Artifacts Include="$(OutDir)\CronDaemon*.pdb"/>
+			<Artifacts Include="$(OutDir)\CronDaemon*.config"/>
+			<Artifacts Include="$(OutDir)\CronDaemon*.xml"/>
+		</ItemGroup>
+
+		<PropertyGroup>
+			<TargetDir>$(DeployDir)\CronDaemon</TargetDir>
+		</PropertyGroup>
+
+		<Copy SourceFiles="%(Artifacts.FullPath)" DestinationFolder="$(TargetDir)"/>
+	</Target>
+
+	<Target Name="Zip" DependsOnTargets="Deploy">
+		<ItemGroup>
+			<ArtifactDirs Include="$(DeployDir)\CronDaemon"/>
+		</ItemGroup>
+
+		<ZipFile
+			BaseDir="$(DeployDir)"
+			Files="@(ArtifactDirs)"
+			ZipFileName="$(DeployDir)\$(DeployZipFileName)"
+		/>
+	</Target>
+</Project>

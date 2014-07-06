@@ -1,6 +1,8 @@
+.artifacts
 bin
 obj
 packages
 
 *.suo
 *.user
+*.log

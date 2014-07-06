@@ -41,6 +41,9 @@ namespace CronScheduling
 		/// <param name="fork">The function to fork job instance on every recurrence.</param>
 		public CronDaemon(Action<T> execute, Func<T,T> fork)
 		{
+			if (execute == null) throw new ArgumentNullException("execute");
+			if (fork == null) throw new ArgumentNullException("fork");
+
 			_execute = execute;
 			_fork = fork;
 			_queue = new PriorityQueue<CronItem>(new CronComparer());
