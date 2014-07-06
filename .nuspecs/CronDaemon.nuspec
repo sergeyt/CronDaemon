@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>CronDaemon</id>
+		<version>0.1.0.0</version>
+		<authors>Sergey Todyshev (stodyshev@gmail.com)</authors>
+		<owners>TsvBits</owners>
+		<licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+		<projectUrl>https://github.com/sergeyt/CronDaemon</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>.NET library with single CronDaemon class with generic implementation of cron scheduling for .NET based on ncrontab.</description>
+		<releaseNotes>Initial release.</releaseNotes>
+		<copyright>Copyright 2014</copyright>
+		<tags>cron scheduling</tags>
+		<dependencies>
+			<dependency id="ncrontab" version="1.0.0"/>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\.artifacts\CronDaemon\CronDaemon.dll" target="lib/net40"/>
+		<file src="..\.artifacts\CronDaemon\CronDaemon.dll" target="lib/net45"/>
+	</files>
+</package>
