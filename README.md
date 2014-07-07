@@ -1,3 +1,5 @@
+[![NuGet version](https://badge.fury.io/nu/CronDaemon.png)](http://badge.fury.io/nu/CronDaemon)
+
 # CronDaemon
 
 .NET library with single CronDaemon class
