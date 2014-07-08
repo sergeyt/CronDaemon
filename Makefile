@@ -1,4 +1,4 @@
 all: build
 
 build:
-	xbuild .build\main.msbuild
+	xbuild .build/main.msbuild
