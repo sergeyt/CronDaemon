@@ -7,3 +7,15 @@
 .NET library with single CronDaemon class
 with generic implementation of cron scheduling
 for .NET based on [ncrontab](http://ncrontab.googlecode.com/).
+
+## Sample code
+
+```c#
+var crond = new CronDaemon<string>(
+  value => {
+    Console.WriteLine(value);
+  });
+
+crond.Add("Print hi hourly", Cron.Hourly());
+crond.Add("Print hi daily 5 times", Cron.Daily(), 5);
+```
