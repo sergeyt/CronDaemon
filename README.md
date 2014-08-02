@@ -1,6 +1,7 @@
 [![Build Status](https://drone.io/github.com/sergeyt/CronDaemon/status.png)](https://drone.io/github.com/sergeyt/CronDaemon/latest)
 [![Build status](https://ci.appveyor.com/api/projects/status/n5yevt7shkvtej9q)](https://ci.appveyor.com/project/sergeyt/crondaemon)
-[![NuGet version](https://badge.fury.io/nu/CronDaemon.png)](http://badge.fury.io/nu/CronDaemon)
+[![NuGet Version](http://img.shields.io/nuget/v/CronDaemon.svg?style=flat)](https://www.nuget.org/packages/CronDaemon/)
+[![NuGet Downloads](http://img.shields.io/nuget/dt/CronDaemon.svg?style=flat)](https://www.nuget.org/packages/CronDaemon/)
 
 # CronDaemon
 
