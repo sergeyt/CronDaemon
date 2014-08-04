@@ -17,7 +17,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\.artifacts\CronDaemon\CronDaemon.dll" target="lib/net40"/>
 		<file src="..\.artifacts\CronDaemon\CronDaemon.dll" target="lib/net45"/>
 	</files>
 </package>

@@ -11,6 +11,7 @@
 	<UsingTask TaskName="Microsoft.Build.Tasks.XmlPoke" AssemblyName="Microsoft.Build.Tasks.v4.0, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
 
 	<PropertyGroup>
+		<Product>CronDaemon</Product>
 		<RootDir>$(MSBuildProjectDirectory)\..</RootDir>
 		<SrcDir>$(RootDir)\src</SrcDir>
 		<DeployDir>$(RootDir)\.artifacts</DeployDir>
@@ -19,7 +20,7 @@
 		<Configuration>release</Configuration>
 		<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
 		<TestOutDir>$(SrcDir)\bin\ReleaseTest</TestOutDir>
-		<DeployZipFileName>CronDaemon-$(Configuration)-v$(ProductVersion).zip</DeployZipFileName>
+		<DeployZipFileName>$(Product)-$(Configuration)-v$(ProductVersion).zip</DeployZipFileName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -96,9 +97,7 @@
 			<ConfigFiles Include="$(MSBuildProjectDirectory)\nunit-console.exe.config"/>
 		</ItemGroup>
 		
-		<Copy SourceFiles="@(ConfigFiles)"
-			  DestinationFolder="$(NUnitToolPath)"
-			  OverwriteReadOnlyFiles="true"/>
+		<Copy SourceFiles="@(ConfigFiles)" DestinationFolder="$(NUnitToolPath)" OverwriteReadOnlyFiles="true"/>
 	</Target>
 
 	<Target Name="Deploy" DependsOnTargets="Build">
@@ -106,14 +105,14 @@
 		<MakeDir Directories="$(DeployDir)" />
 
 		<ItemGroup>
-			<Artifacts Include="$(OutDir)\CronDaemon*.dll"/>
-			<Artifacts Include="$(OutDir)\CronDaemon*.pdb"/>
-			<Artifacts Include="$(OutDir)\CronDaemon*.config"/>
-			<Artifacts Include="$(OutDir)\CronDaemon*.xml"/>
+			<Artifacts Include="$(OutDir)\$(Product)*.dll"/>
+			<Artifacts Include="$(OutDir)\$(Product)*.pdb"/>
+			<Artifacts Include="$(OutDir)\$(Product)*.config"/>
+			<Artifacts Include="$(OutDir)\$(Product)*.xml"/>
 		</ItemGroup>
 
 		<PropertyGroup>
-			<TargetDir>$(DeployDir)\CronDaemon</TargetDir>
+			<TargetDir>$(DeployDir)\$(Product)</TargetDir>
 		</PropertyGroup>
 
 		<Copy SourceFiles="%(Artifacts.FullPath)" DestinationFolder="$(TargetDir)"/>
@@ -124,11 +123,7 @@
 			<ArtifactDirs Include="$(DeployDir)\CronDaemon"/>
 		</ItemGroup>
 
-		<ZipFile
-			BaseDir="$(DeployDir)"
-			Files="@(ArtifactDirs)"
-			ZipFileName="$(DeployDir)\$(DeployZipFileName)"
-		/>
+		<ZipFile BaseDir="$(DeployDir)" Files="@(ArtifactDirs)" ZipFileName="$(DeployDir)\$(DeployZipFileName)"/>
 	</Target>
 
 	<Target Name="Pack" DependsOnTargets="Deploy">
@@ -140,7 +135,6 @@
 			<NuSpecs Include="$(RootDir)\.nuspecs\*.nuspec"/>
 		</ItemGroup>
 
-		<Exec WorkingDirectory="$(RootDir)"
-			  Command="$(NuGetExePath) pack %(NuSpecs.FullPath) -OutputDirectory $(DeployDir)"/>
+		<Exec WorkingDirectory="$(DeployDir)" Command="$(NuGetExePath) pack %(NuSpecs.FullPath) -NoDefaultExcludes"/>
 	</Target>
 </Project>
