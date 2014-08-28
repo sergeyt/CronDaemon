@@ -12,7 +12,7 @@ for .NET based on [ncrontab](http://ncrontab.googlecode.com/).
 ## Sample code
 
 ```c#
-var crond = new CronDaemon<string>(
+var crond = CronDaemon.Start<string>(
   value => {
     Console.WriteLine(value);
   });
