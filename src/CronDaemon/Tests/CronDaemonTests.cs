@@ -1,6 +1,8 @@
 ﻿#if NUNIT
+
 using System;
 using System.Threading;
+
 using NUnit.Framework;
 
 namespace CronScheduling.Tests
@@ -11,8 +13,7 @@ namespace CronScheduling.Tests
 		[Test]
 		public void CtorFails()
 		{
-			Assert.That(() => new CronDaemon<int>(null, null), Throws.InstanceOf<ArgumentNullException>());
-			Assert.That(() => new CronDaemon<int>(_ => { }, null), Throws.InstanceOf<ArgumentNullException>());
+			Assert.That(() => new CronDaemon<int>(null), Throws.InstanceOf<ArgumentNullException>());
 		}
 
 		public static IDisposable WithShiftedOneMinuteTick()
@@ -45,7 +46,7 @@ namespace CronScheduling.Tests
 			{
 				var count = 0;
 				var done = new ManualResetEvent(false);
-				var crond = new CronDaemon<int>(
+				var crond = CronDaemon.Start<int>(
 					i =>
 					{
 						count++;
@@ -75,7 +76,7 @@ namespace CronScheduling.Tests
 			{
 				var count = 0;
 				var done = new ManualResetEvent(false);
-				var crond = new CronDaemon<int>(
+				var crond = CronDaemon.Start<int>(
 					i =>
 					{
 						count++;

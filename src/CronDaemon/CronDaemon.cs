@@ -39,15 +39,21 @@ namespace CronScheduling
 		/// </summary>
 		/// <param name="execute">The job handler.</param>
 		/// <param name="fork">The function to fork job instance on every recurrence.</param>
-		public CronDaemon(Action<T> execute, Func<T,T> fork)
+		public CronDaemon(Action<T> execute, Func<T,T> fork = null)
 		{
 			if (execute == null) throw new ArgumentNullException("execute");
-			if (fork == null) throw new ArgumentNullException("fork");
 
 			_execute = execute;
-			_fork = fork;
+			_fork = fork ?? DefaultFork;
 			_queue = new PriorityQueue<CronItem>(new CronComparer());
 			_timer = new Timer(TimerCallback);
+		}
+
+		private static T DefaultFork(T item)
+		{
+			var cloneable = item as ICloneable;
+			if (cloneable != null) return (T) cloneable.Clone();
+			return item;
 		}
 
 		public void Dispose()
@@ -155,6 +161,16 @@ namespace CronScheduling
 			{
 				return x.NextOccurrence.CompareTo(y.NextOccurrence);
 			}
+		}
+	}
+
+	public static class CronDaemon
+	{
+		public static CronDaemon<T> Start<T>(Action<T> execute, Func<T, T> fork = null)
+		{
+			if (execute == null) throw new ArgumentNullException("execute");
+
+			return new CronDaemon<T>(execute, fork);
 		}
 	}
 }
