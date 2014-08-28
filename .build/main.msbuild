@@ -15,7 +15,7 @@
 		<RootDir>$(MSBuildProjectDirectory)\..</RootDir>
 		<SrcDir>$(RootDir)\src</SrcDir>
 		<DeployDir>$(RootDir)\.out</DeployDir>
-		<ProductVersion>0.3.0.0</ProductVersion>
+		<ProductVersion>0.3.1.0</ProductVersion>
 		<AssemblyCopyright>Copyright Sergey Todyshev © 2014</AssemblyCopyright>
 		<Configuration>release</Configuration>
 		<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
