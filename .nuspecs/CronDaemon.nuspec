@@ -2,18 +2,19 @@
 <package>
 	<metadata>
 		<id>CronDaemon</id>
-		<version>0.3.1.0</version>
+		<version>0.3.2.0</version>
 		<authors>Sergey Todyshev (stodyshev@gmail.com)</authors>
 		<owners>TsvBits</owners>
 		<licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
 		<projectUrl>https://github.com/sergeyt/CronDaemon</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>.NET library with single CronDaemon class with generic implementation of cron scheduling for .NET based on ncrontab.</description>
+		<description>Small .NET package with simple generic implementation of cron scheduling based on ncrontab and System.Threading.Timer.</description>
 		<releaseNotes>Added cron exression builder.</releaseNotes>
 		<copyright>Copyright 2014</copyright>
 		<tags>cron scheduling</tags>
 		<dependencies>
 			<dependency id="ncrontab" version="1.0.0"/>
+			<dependency id="C5" version="2.3.0.1"/>
 		</dependencies>
 	</metadata>
 	<files>

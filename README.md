@@ -5,9 +5,9 @@
 
 # CronDaemon
 
-.NET library with single CronDaemon class
-with generic implementation of cron scheduling
-for .NET based on [ncrontab](http://ncrontab.googlecode.com/).
+Small .NET package with simple generic implementation of cron scheduling based
+on [ncrontab](http://ncrontab.googlecode.com/)
+and [System.Threading.Timer](http://msdn.microsoft.com/en-us/library/system.threading.timer(v=vs.110).aspx).
 
 ## Sample code
 

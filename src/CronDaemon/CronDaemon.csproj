@@ -44,8 +44,9 @@
     <Reference Include="C5">
       <HintPath>..\..\packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
     </Reference>
-    <Reference Include="NCrontab">
-      <HintPath>..\..\packages\ncrontab.1.0.0\lib\NCrontab.dll</HintPath>
+    <Reference Include="NCrontab, Version=2.0.16709.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ncrontab.2.0.0\lib\net20\NCrontab.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
