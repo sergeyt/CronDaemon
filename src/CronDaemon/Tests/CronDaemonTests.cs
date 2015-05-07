@@ -16,11 +16,10 @@ namespace CronScheduling.Tests
 			Assert.That(() => new CronDaemon<int>(null), Throws.InstanceOf<ArgumentNullException>());
 		}
 
-		public static IDisposable WithShiftedOneMinuteTick()
+		public static IDisposable WithOneMinuteClock()
 		{
 			var now = DateTime.UtcNow;
-			var delay = TimeSpan.FromSeconds(1);
-			now = now.Subtract(TimeSpan.FromSeconds(now.Second).Add(TimeSpan.FromMilliseconds(now.Millisecond))).Subtract(delay);
+			now = now.Subtract(TimeSpan.FromSeconds(now.Second)).Subtract(TimeSpan.FromSeconds(1));
 			var timeIndex = 0;
 
 			SystemTime.NowFn = () =>
@@ -42,7 +41,7 @@ namespace CronScheduling.Tests
 		[Test]
 		public void RunForever()
 		{
-			using (WithShiftedOneMinuteTick())
+			using (WithOneMinuteClock())
 			{
 				var count = 0;
 				var done = new ManualResetEvent(false);
@@ -67,12 +66,11 @@ namespace CronScheduling.Tests
 			}
 		}
 
-		// TODO make it faster
 		[TestCase(0, Result = 1)]
-		[TestCase(1, Result = 2)]
+		[TestCase(1, Result = 1)]
 		public int RunTimes(int times)
 		{
-			using (WithShiftedOneMinuteTick())
+			using (WithOneMinuteClock())
 			{
 				var count = 0;
 				var done = new ManualResetEvent(false);

@@ -13,8 +13,7 @@
 		<copyright>Copyright 2014</copyright>
 		<tags>cron scheduling</tags>
 		<dependencies>
-			<dependency id="ncrontab" version="1.0.0"/>
-			<dependency id="C5" version="2.3.0.1"/>
+			<dependency id="ncrontab" version="2.0.0"/>
 		</dependencies>
 	</metadata>
 	<files>
