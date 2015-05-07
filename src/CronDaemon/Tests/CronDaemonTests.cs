@@ -61,13 +61,14 @@ namespace CronScheduling.Tests
 				{
 					crond.Add(1, Cron.Minutely(), int.MaxValue);
 
-					Assert.IsTrue(done.WaitOne(TimeSpan.FromSeconds(3)));
+					Assert.IsTrue(done.WaitOne(TimeSpan.FromSeconds(5)));
 				}
 			}
 		}
 
 		[TestCase(0, Result = 1)]
 		[TestCase(1, Result = 1)]
+		[TestCase(2, Result = 2)]
 		public int RunTimes(int times)
 		{
 			using (WithOneMinuteClock())
@@ -86,7 +87,7 @@ namespace CronScheduling.Tests
 				{
 					crond.Add(1, Cron.Minutely(), times);
 
-					done.WaitOne(TimeSpan.FromSeconds(3));
+					done.WaitOne(TimeSpan.FromSeconds(5));
 				}
 
 				return count;

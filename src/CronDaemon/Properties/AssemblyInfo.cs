@@ -5,7 +5,7 @@
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CronDaemon")]
-[assembly: AssemblyCopyright("Copyright © Sergey Todyshev 2014")]
+[assembly: AssemblyCopyright("Copyright © Sergey Todyshev 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion(AssemblyInfo.Version)]
@@ -13,5 +13,5 @@
 
 static class AssemblyInfo
 {
-	public const string Version = "0.3.2.0";
+	public const string Version = "0.4.0.0";
 }
