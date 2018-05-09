@@ -48,7 +48,7 @@ namespace CronScheduling
 		/// Adds specified job to <see cref="CronDaemon{T}"/> queue with given cron expression and maximum number of repetitions.
 		/// </summary>
 		/// <param name="job">The job definition.</param>
-		/// <param name="cronExpression">Specifies cron expression.</param>
+		/// <param name="cronExpression">Specifies cron expression.  This will be evaluated in UTC time standard.</param>
 		/// <param name="repeatCount">Specifies maximum number of job recurrence.</param>
 		public void Add(T job, string cronExpression, int repeatCount)
 		{

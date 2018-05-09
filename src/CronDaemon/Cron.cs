@@ -52,16 +52,16 @@ namespace CronScheduling
 			return String.Format("{0} * * * *", minute);
 		}
 
-		/// <summary>
-		/// Every day at the specified hour and minute.
-		/// </summary>
-		public static CronExpression Daily(int hour = 0, int minute = 0)
+        /// <summary>
+        /// Every day at the specified hour and minute in UTC.
+        /// </summary>
+        public static CronExpression Daily(int hour = 0, int minute = 0)
 		{
 			return String.Format("{0} {1} * * *", minute, hour);
 		}
 
 		/// <summary>
-		/// Every week at the specified day of week, hour and minute.
+		/// Every week at the specified day of week, hour and minute in UTC.
 		/// </summary>
 		public static CronExpression Weekly(DayOfWeek dayOfWeek = DayOfWeek.Monday, int hour = 0, int minute = 0)
 		{
@@ -69,7 +69,7 @@ namespace CronScheduling
 		}
 
 		/// <summary>
-		/// Every month at the specified day of month, hour and minute.
+		/// Every month at the specified day of month, hour and minute in UTC.
 		/// </summary>
 		public static CronExpression Monthly(int day = 1, int hour = 0, int minute = 0)
 		{
@@ -77,7 +77,7 @@ namespace CronScheduling
 		}
 
 		/// <summary>
-		/// Every year at the specified month, day, hour and minute.
+		/// Every year at the specified month, day, hour and minute in UTC.
 		/// </summary>
 		public static CronExpression Yearly(int month = 1, int day = 1, int hour = 0, int minute = 0)
 		{
