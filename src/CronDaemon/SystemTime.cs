@@ -15,20 +15,5 @@ namespace CronScheduling
 		{
 			get { return NowFn == null ? DateTime.UtcNow : NowFn(); }
 		}
-
-		internal static IDisposable WithOneMinuteTick()
-		{
-			var now = DateTime.UtcNow;
-			now = now.Subtract(TimeSpan.FromSeconds(now.Second).Add(TimeSpan.FromMilliseconds(now.Millisecond)));
-
-			NowFn = () =>
-			{
-				var t = now;
-				now = now.Add(TimeSpan.FromMinutes(1));
-				return t;
-			};
-
-			return new DisposableAction(() => NowFn = null);
-		}
 	}
 }
