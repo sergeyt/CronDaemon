@@ -15,8 +15,8 @@
 		<RootDir>$(MSBuildProjectDirectory)\..</RootDir>
 		<SrcDir>$(RootDir)\src</SrcDir>
 		<DeployDir>$(RootDir)\.out</DeployDir>
-		<ProductVersion>0.4.0.0</ProductVersion>
-		<AssemblyCopyright>Copyright Sergey Todyshev © 2015</AssemblyCopyright>
+		<ProductVersion>0.5.0.0</ProductVersion>
+		<AssemblyCopyright>Copyright Sergey Todyshev © 2018</AssemblyCopyright>
 		<Configuration>release</Configuration>
 		<OutDir>$(SrcDir)\bin\$(Configuration)</OutDir>
 		<TestOutDir>$(SrcDir)\bin\Test</TestOutDir>

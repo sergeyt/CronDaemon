@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>CronDaemon</id>
-		<version>0.4.0.0</version>
+		<version>0.5.0.0</version>
 		<authors>Sergey Todyshev (stodyshev@gmail.com)</authors>
 		<owners>TsvBits</owners>
 		<licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -10,7 +10,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Small .NET package with simple generic implementation of cron scheduling based on ncrontab and System.Threading.Timer.</description>
 		<releaseNotes>Added cron exression builder.</releaseNotes>
-		<copyright>Copyright 2015</copyright>
+		<copyright>Copyright 2018</copyright>
 		<tags>cron scheduling</tags>
 		<dependencies>
 			<dependency id="ncrontab" version="2.0.0"/>
