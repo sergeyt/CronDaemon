@@ -7,7 +7,7 @@
 
 Small .NET package with simple generic implementation of cron scheduling based
 on [ncrontab](https://github.com/atifaziz/NCrontab)
-and [System.Threading.Timer](http://msdn.microsoft.com/en-us/library/system.threading.timer(v=vs.110).aspx).
+and [System.Threading.Tasks](http://msdn.microsoft.com/en-us/library/system.threading.tasks(v=vs.110).aspx).
 
 ## Sample code
 
