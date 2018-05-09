@@ -9,11 +9,11 @@ namespace CronScheduling
 	/// </summary>
 	internal static class SystemTime
 	{
-		public static Func<DateTime> NowFn;
+		public static Func<DateTime> NowFn = () => DateTime.UtcNow;
 
 		public static DateTime Now
 		{
-			get { return NowFn == null ? DateTime.UtcNow : NowFn(); }
+			get { return NowFn(); }
 		}
 	}
 }
